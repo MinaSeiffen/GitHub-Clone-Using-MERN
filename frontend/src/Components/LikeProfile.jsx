@@ -16,7 +16,7 @@ const LikeProfile = ({ userProfile }) => {
 			const data = await res.json();
 
 			if (data.error) throw new Error(data.error);
-			toast.success(data.MSG);
+			toast.success(data.message);
 		} catch (error) {
 			toast.error(error.message);
 		}
