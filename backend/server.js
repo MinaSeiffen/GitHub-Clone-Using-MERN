@@ -1,4 +1,5 @@
-const port = 5000;
+const port = process.env.PORT || 5000;
+import path from "path";
 import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
@@ -15,6 +16,7 @@ import connectingToDB from "./DB/ConnectingDB.js";
 dotenv.config();
 
 const app = express();
+const __dirname = path.resolve();
 
 app.use(
   session({ secret: "keyboard cat", resave: false, saveUninitialized: false })
@@ -30,8 +32,10 @@ app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/explore", exploreRoutes);
 
-app.get("/", (req, res) => {
-  res.send("server is ready");
+app.use(express.static(path.join(__dirname, "/frontend/dist")));
+
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "frontend/dist", "index.html"));
 });
 
 app.listen(port, () => {
