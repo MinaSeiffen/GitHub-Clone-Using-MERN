@@ -31,11 +31,11 @@ export const likeProfile = async(req, res, next) => {
     const userToLike = await userModel.findOne({username})
 
     if (!userToLike) {
-      return res.json({MSG: "that user is not a member"})
+      return res.json({error: "that user is not a member"})
     }
 
     if (user.liked_profiles.includes(userToLike.username)) {
-      return res.status(400).json({MSG:"That user you already liked before"})
+      return res.status(400).json({erorr:"That user you already liked before"})
     }
 
     userToLike.likedBy.push({username:user.username , avatar_url:user.avatar_url, likedDate:Date.now()})
