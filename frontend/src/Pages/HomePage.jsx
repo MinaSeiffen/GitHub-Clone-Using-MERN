@@ -17,7 +17,7 @@ const HomePage = () => {
   const getUserData = useCallback(async (userName = "MinaSeiffen") => {
     setLoading(true);
     try {
-      const res = await fetch(`http://localhost:5000/api/users/profile/${userName}`)
+      const res = await fetch(`/api/users/profile/${userName}`)
       const {repos , userProfile} = await res.json()
       repos.sort((a,b)=> new Date (b.created_at) - new Date (a.created_at))
       setRepos(repos);
